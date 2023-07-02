@@ -1,10 +1,11 @@
 from unittest import mock
 from box import ConfigBox
 import pytest
-from RiceClassifier.config.configuration import ConfigurationManager, YAMLConfigReader
+from RiceClassifier.config.configuration import ConfigReaderInterface, ConfigurationManager, YAMLConfigReader,ConfigDirectoryCreatorInterface
 from RiceClassifier.config.configuration import FilesystemDirectoryCreator
 from RiceClassifier.entity.config_entity import DataIngestionConfig
-
+from pathlib import Path
+from unittest.mock import MagicMock
 
 @pytest.fixture
 def mock_read_yaml():
