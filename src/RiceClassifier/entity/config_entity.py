@@ -33,6 +33,19 @@ class PrepareCallbacksConfig(PathConfig):
     checkpoint_model_filepath: Path
 
 
+
+@dataclass(frozen=True)
+class ProcessedDataConfig(PathConfig):
+    data_dir:Path
+    train_dir: Path
+    processed_train_data_pickle_file: Path
+    valid_dir: Path
+    processed_valid_data_pickle_file: Path
+    test_dir: Path
+    processed_test_data_pickle_file: Path
+    params_image_fixed_size: tuple
+    
+
 @dataclass(frozen=True)
 class TrainingConfig(PathConfig):
     trained_model_path: Path

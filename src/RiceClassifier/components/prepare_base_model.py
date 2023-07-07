@@ -6,6 +6,9 @@ from RiceClassifier.entity.config_entity import PrepareBaseModelConfig
 
 from pathlib import Path
 
+import tensorflow as tf
+import tensorflow_hub as hub
+from tensorflow import keras
 
 class BaseModelLoader:
     
@@ -13,11 +16,24 @@ class BaseModelLoader:
         self.config = config
         
     def load_base_model(self, config: PrepareBaseModelConfig):
-        return tf.keras.applications.mobilenet_v2.MobileNetV2(
+        
+        mobile_net = 'https://tfhub.dev/google/tf2-preview/mobilenet_v2/feature_vector/4' # MobileNetv2 link
+        mobile_net = hub.KerasLayer(
+            mobile_net, input_shape=(224,224,3), trainable=False) # Removing the last layer
+
+        num_label = 5 # number of labels
+
+        self.model = keras.Sequential([
+            mobile_net,
+            #keras.layers.Dense(num_label)
+        ])
+        
+        return self.model
+    """ return tf.keras.applications.mobilenet_v2.MobileNetV2(
             input_shape=config.params_image_size,
             weights=config.params_weights,
             include_top=config.params_include_top
-        )
+        ) """
         
     def save_base_model(self, model: tf.keras.Model):
         model.save(self.config.base_model_path)

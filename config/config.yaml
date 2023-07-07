@@ -22,6 +22,14 @@ prepare_callbacks:
   tensorboard_root_log_dir: artifacts/prepare_callbacks/tensorboard_log_dir
   checkpoint_model_filepath: artifacts/prepare_callbacks/checkpoint_dir/model.h5
 
+processed_data:
+  root_dir: artifacts/processed_data
+  train_dir: artifacts/processed_data/train
+  processed_train_data_pickle_file: artifacts/processed_data/train/processed_train_data.pkl
+  valid_dir: artifacts/processed_data/valid
+  processed_valid_data_pickle_file: artifacts/processed_data/valid/processed_valid_data.pkl
+  test_dir: artifacts/processed_data/test
+  processed_test_data_pickle_file: artifacts/processed_data/test/processed_test_data.pkl
 
 
 

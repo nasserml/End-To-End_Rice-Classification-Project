@@ -3,7 +3,7 @@
 from abc import ABC, abstractmethod
 from RiceClassifier.constants import *
 from RiceClassifier.utils.common import read_yaml, create_directories
-from RiceClassifier.entity.config_entity import DataIngestionConfig, PrepareBaseModelConfig, PrepareCallbacksConfig
+from RiceClassifier.entity.config_entity import DataIngestionConfig, PrepareBaseModelConfig, PrepareCallbacksConfig, ProcessedDataConfig
 import os
 
 class ConfigReaderInterface(ABC):
@@ -93,6 +93,26 @@ class ConfigurationManager:
 
         return prepare_callback_config
     
+    
+    def get_processed_data_config(self) -> ProcessedDataConfig:
+        config = self.config.processed_data
+        data_dir = os.path.join(self.config.data_ingestion.unzip_dir,'Rice_Images')
+        create_directories([config.root_dir])
+        
+        processed_data_config = ProcessedDataConfig(
+            root_dir=Path(config.root_dir),
+            data_dir=Path(data_dir),
+            train_dir=Path(config.train_dir),
+            processed_train_data_pickle_file=Path(config.processed_train_data_pickle_file),
+            valid_dir=Path(config.valid_dir),
+            processed_valid_data_pickle_file=Path(config.processed_valid_data_pickle_file),
+            test_dir=Path(config.test_dir),
+            processed_test_data_pickle_file=Path(config.processed_test_data_pickle_file),
+            params_image_fixed_size=self.params.IMAGE_FIXED_SIZE
+            
+        )
+        
+        return processed_data_config
 
 
 
